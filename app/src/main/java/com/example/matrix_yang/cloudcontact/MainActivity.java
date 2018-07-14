@@ -67,9 +67,15 @@ public class MainActivity extends Activity {
             public void onItemClick(ZrcListView parent, View view, int position, long id) {
                 Friend f= (Friend) listView.getItemAtPosition(position);
                 System.out.println("------------->"+f.toString());
-                Intent intent =new Intent(MainActivity.this,infoActivity.class);
-                intent.putExtra("info",f.toString());
-                startActivity(intent);
+                if(f.getId()==1){
+                    Intent intent =new Intent(MainActivity.this,editActivity.class);
+                    intent.putExtra("info",f.toString());
+                    startActivity(intent);
+                }else {
+                    Intent intent =new Intent(MainActivity.this,infoActivity.class);
+                    intent.putExtra("info",f.toString());
+                    startActivity(intent);
+                }
             }
         });
 
