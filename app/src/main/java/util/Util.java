@@ -19,6 +19,11 @@ public class Util {
             Friend friend=new Friend();
             friend.setId(jobj.getLong("id"));
             friend.setName(jobj.getString("name"));
+            friend.setPhoneNum(jobj.getString("phoneNum"));
+            friend.setPwd(jobj.getString("pwd"));
+            friend.setSex(jobj.getString("sex"));
+            friend.setStuId(jobj.getString("stuId"));
+
             list.add(friend);
         }
 
