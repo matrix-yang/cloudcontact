@@ -55,4 +55,9 @@ public class Friend {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
+
+    @Override
+    public String toString() {
+        return this.id+this.name+this.phoneNum+this.pwd;
+    }
 }

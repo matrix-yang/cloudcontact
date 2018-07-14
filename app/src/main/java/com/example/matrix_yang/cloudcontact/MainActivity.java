@@ -1,6 +1,7 @@
 package com.example.matrix_yang.cloudcontact;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -30,12 +31,7 @@ public class MainActivity extends Activity {
     private int pageId = -1;
     private MyAdapter adapter;
 
-    private static final String[][] names = new String[][]{
-        {"加拿大","瑞典","澳大利亚","瑞士","新西兰","挪威","丹麦","芬兰","奥地利","荷兰","德国","日本","比利时","意大利","英国"},
-        {"德国","西班牙","爱尔兰","法国","葡萄牙","新加坡","希腊","巴西","美国","阿根廷","波兰","印度","秘鲁","阿联酋","泰国"},
-        {"智利","波多黎各","南非","韩国","墨西哥","土耳其","埃及","委内瑞拉","玻利维亚","乌克兰"},
-        {"以色列","海地","中国","沙特阿拉伯","俄罗斯","哥伦比亚","尼日利亚","巴基斯坦","伊朗","伊拉克"}
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +64,8 @@ public class MainActivity extends Activity {
         listView.setOnItemClickListener(new ZrcListView.OnItemClickListener() {
             @Override
             public void onItemClick(ZrcListView parent, View view, int position, long id) {
-                String text= (String) listView.getItemAtPosition(position);
-                System.out.println("------------->"+text);
+                Friend Friend= (Friend) listView.getItemAtPosition(position);
+                System.out.println("------------->"+Friend.toString());
             }
         });
 
@@ -115,19 +111,6 @@ public class MainActivity extends Activity {
                         }
                     }).start();
 
-
-                    /*friends=new ArrayList<>();
-                    for (long k=0;k<15;k++){
-                        Friend friend= new Friend();
-                        friend.setId(k);
-                        friend.setName("杨"+k);
-                        friend.setPhoneNum("132"+k);
-                        friend.setSex("男");
-                        friend.setStuId("2018"+k);
-                        friend.setPwd(k+"00");
-                        friends.add(friend);
-                    }*/
-
                     adapter.notifyDataSetChanged();
                     listView.setRefreshSuccess("加载成功"); // 通知加载成功
                     listView.startLoadMore(); // 开启LoadingMore功能
@@ -144,16 +127,22 @@ public class MainActivity extends Activity {
             public void run() {
                 pageId++;
                 if(pageId<10){
-                    for (long k=0;k<15;k++){
-                        Friend friend= new Friend();
-                        friend.setId(k);
-                        friend.setName("杨"+pageId+"-"+k);
-                        friend.setPhoneNum("132"+k);
-                        friend.setSex("男");
-                        friend.setStuId("2018"+k);
-                        friend.setPwd(k+"00");
-                        friends.add(friend);
-                    }
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String r = HttpClientUtil.sendGet("http://192.168.31.228/Friend/getAll");
+                            System.out.println("second----------------------"+r + Thread.currentThread().getName());
+                            Message message = new Message();
+                            message.obj =r;
+                            try {
+                                List<Friend> morefriends= (ArrayList<Friend>) Util.JSONArrayStringtoList(r);
+                                friends.addAll(morefriends);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }).start();
                     adapter.notifyDataSetChanged();
                     listView.setLoadMoreSuccess();
                 }else{
