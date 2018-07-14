@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;;
@@ -64,8 +65,11 @@ public class MainActivity extends Activity {
         listView.setOnItemClickListener(new ZrcListView.OnItemClickListener() {
             @Override
             public void onItemClick(ZrcListView parent, View view, int position, long id) {
-                Friend Friend= (Friend) listView.getItemAtPosition(position);
-                System.out.println("------------->"+Friend.toString());
+                Friend f= (Friend) listView.getItemAtPosition(position);
+                System.out.println("------------->"+f.toString());
+                Intent intent =new Intent(MainActivity.this,infoActivity.class);
+                intent.putExtra("info",f.toString());
+                startActivity(intent);
             }
         });
 

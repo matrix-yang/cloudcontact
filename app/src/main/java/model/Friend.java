@@ -58,6 +58,6 @@ public class Friend {
 
     @Override
     public String toString() {
-        return this.id+this.name+this.phoneNum+this.pwd;
+        return this.id + "," + this.name + "," + this.phoneNum + "," + this.sex + "," + this.stuId + "," + this.pwd;
     }
 }
