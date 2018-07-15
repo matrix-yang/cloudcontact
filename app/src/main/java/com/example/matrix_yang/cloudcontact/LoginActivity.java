@@ -61,6 +61,11 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 }).start();
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if (FLAG.equals("false")) {
                     Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                 }
