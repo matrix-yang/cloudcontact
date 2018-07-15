@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static String FLAG="false";
+    public static String FLAG = "false";
     private EditText etUserName;
     private EditText etUserPassword;
     private Button btnLogin;
@@ -48,21 +48,22 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FLAG="false";
                 final Editable un = userName.getText();
                 final Editable pwd = password.getText();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        FLAG = HttpClientUtil.sendGet("http://"+Util.SERVERIP+"/Friend/verify?phoneNum=" + un + "&pwd=" + pwd);
+                        FLAG = HttpClientUtil.sendGet("http://" + Util.SERVERIP + "/Friend/verify?phoneNum=" + un + "&pwd=" + pwd);
+                        if (FLAG.equals("true")) {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 }).start();
-                if (FLAG.equals("true")){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }else {
+                if (FLAG.equals("false")) {
                     Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
