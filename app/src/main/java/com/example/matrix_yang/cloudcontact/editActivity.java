@@ -44,7 +44,7 @@ public class editActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        HttpClientUtil.sendGet("http://192.168.31.228/Friend/saveOrUpdate?id="+id+"&name="+name.getText()+"&phoneNum="+phone.getText()+"&sex="+sex.getText()+"&stuId="+stuid.getText()+"&pwd="+pwd.getText());
+                        HttpClientUtil.sendGet("http://"+Util.SERVERIP+"/Friend/saveOrUpdate?id="+id+"&name="+name.getText()+"&phoneNum="+phone.getText()+"&sex="+sex.getText()+"&stuId="+stuid.getText()+"&pwd="+pwd.getText());
                     }
                 }).start();
                 Toast.makeText(editActivity.this, "操作成功", Toast.LENGTH_SHORT).show();

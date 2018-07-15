@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            String r = HttpClientUtil.sendGet("http://192.168.31.228/Friend/getAll");
+                            String r = HttpClientUtil.sendGet("http://"+Util.SERVERIP+"/Friend/getAll");
                             System.out.println("second----------------------"+r + Thread.currentThread().getName());
                             Message message = new Message();
                             message.obj =r;
@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            String r = HttpClientUtil.sendGet("http://192.168.31.228/Friend/getAll");
+                            String r = HttpClientUtil.sendGet("http://"+Util.SERVERIP+"/Friend/getAll");
                             System.out.println("second----------------------"+r + Thread.currentThread().getName());
                             Message message = new Message();
                             message.obj =r;

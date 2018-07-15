@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        FLAG = HttpClientUtil.sendGet("http://192.168.31.228/Friend/verify?phoneNum=" + un + "&pwd=" + pwd);
+                        FLAG = HttpClientUtil.sendGet("http://"+Util.SERVERIP+"/Friend/verify?phoneNum=" + un + "&pwd=" + pwd);
                     }
                 }).start();
                 if (FLAG.equals("true")){

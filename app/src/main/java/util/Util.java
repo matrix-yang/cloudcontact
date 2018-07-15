@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
+    
+    public final static String SERVERIP="192.168.31.228";
+
     public static List JSONArrayStringtoList(String s) throws JSONException {
         List<Friend> list = new ArrayList<>();
         JSONArray jsonArray = null;
